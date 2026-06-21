@@ -1,13 +1,270 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM Task Manager</title>
     <link rel="stylesheet" href="./css/style.css" />
-</head>
-<body>
+  </head>
+
+  <body>
+    <!-- header section of this task manager -->
+    <header class="app-header">
+      <div class="app-header-content">
+        <div class="app-header-brand">
+          <span class="app-header-icon">✅</span>
+
+          <div>
+            <h1 class="app-header-title">DOM Task Manager</h1>
+            <p class="app-header-subtitle">Vanilla JavaScript DOM Project</p>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="app-header-theme-btn"
+          data-js="theme-toggle-btn"
+        >
+          Dark Mode
+        </button>
+      </div>
+    </header>
+
+    <!-- main section of this task manager -->
+    <main class="app-main">
+      <!-- task manager form section -->
+      <section class="task-form-section">
+        <div class="section-header">
+          <h2 class="section-header-title">Create New Task</h2>
+          <p class="section-header-description">
+            Add your task title and select a category.
+          </p>
+        </div>
+
+        <!-- task manager form -->
+        <form class="task-form" data-js="task-form">
+          <div class="task-form-group">
+            <label for="taskTitleInput" class="task-form-label">
+              Task Title
+            </label>
+
+            <input
+              type="text"
+              id="taskTitleInput"
+              class="task-form-input"
+              data-js="task-title-input"
+              placeholder="Enter task title"
+              autocomplete="off"
+            />
+          </div>
+
+          <div class="task-form-group">
+            <label for="taskCategorySelect" class="task-form-label">
+              Category
+            </label>
+
+            <select
+              id="taskCategorySelect"
+              class="task-form-select"
+              data-js="task-category-select"
+            >
+              <option value="">Select Category</option>
+              <option value="study">Study</option>
+              <option value="work">Work</option>
+              <option value="personal">Personal</option>
+              <option value="urgent">Urgent</option>
+            </select>
+          </div>
+
+          <button type="submit" class="task-form-submit-btn">Add Task</button>
+        </form>
+      </section>
+
+      <!-- task tools section -->
+      <section class="task-tools-section">
+        <div class="section-header">
+          <h2 class="section-header-title">Task Tools</h2>
+          <p class="section-header-description">
+            Search, filter, count, and manage your tasks.
+          </p>
+        </div>
+
+        <div class="task-tools">
+          <div class="task-tools-group">
+            <label for="taskSearchInput" class="task-tools-label">
+              Search Task
+            </label>
+
+            <input
+              type="text"
+              id="taskSearchInput"
+              class="task-tools-input"
+              data-js="task-search-input"
+              placeholder="Search task by title"
+            />
+          </div>
+
+          <div class="task-tools-group">
+            <label for="taskFilterSelect" class="task-tools-label">
+              Filter Category
+            </label>
+
+            <select
+              id="taskFilterSelect"
+              class="task-tools-select"
+              data-js="task-filter-select"
+            >
+              <option value="all">All Categories</option>
+              <option value="study">Study</option>
+              <option value="work">Work</option>
+              <option value="personal">Personal</option>
+              <option value="urgent">Urgent</option>
+            </select>
+          </div>
+
+          <div class="task-counter-box">
+            <span class="task-counter-text">
+              Pending:
+              <strong data-js="pending-count">0</strong>
+            </span>
+
+            <span class="task-counter-text">
+              Completed:
+              <strong data-js="completed-count">0</strong>
+            </span>
+          </div>
+
+          <button
+            type="button"
+            class="task-tools-clear-btn"
+            data-js="clear-all-btn"
+          >
+            Clear All Tasks
+          </button>
+        </div>
+      </section>
+
+      <!-- task list section -->
+      <section class="task-list-section">
+        <div class="section-header">
+          <h2 class="section-header-title">Task List</h2>
+          <p class="section-header-description">
+            Your dynamically created tasks will appear here.
+          </p>
+        </div>
+
+        <div class="task-list" data-js="task-list">
+          <p class="task-list-empty-message" data-js="empty-task-message">
+            No tasks added yet.
+          </p>
+        </div>
+      </section>
+
+      <!-- attributes vs properties demo section -->
+      <section class="attribute-demo-section">
+        <div class="section-header">
+          <h2 class="section-header-title">Attributes vs Properties Demo</h2>
+          <p class="section-header-description">
+            Open console and check the difference between input.value and
+            getAttribute("value").
+          </p>
+        </div>
+
+        <div class="attribute-demo">
+          <label for="attributeDemoInput" class="attribute-demo-label">
+            Demo Input
+          </label>
+
+          <input
+            type="text"
+            id="attributeDemoInput"
+            class="attribute-demo-input"
+            data-js="attribute-demo-input"
+            value="Default Task"
+          />
+
+          <button
+            type="button"
+            class="attribute-demo-btn"
+            data-js="check-attribute-btn"
+          >
+            Check Value Difference
+          </button>
+        </div>
+      </section>
+
+      <!-- event propagation demo section -->
+      <section class="propagation-demo-section">
+        <div class="section-header">
+          <h2 class="section-header-title">Event Propagation Demo</h2>
+          <p class="section-header-description">
+            Click the child button and check console for bubbling and capturing
+            order.
+          </p>
+        </div>
+
+        <div class="propagation-demo">
+          <div
+            class="propagation-box propagation-grandparent"
+            data-js="grandparent-box"
+          >
+            Grandparent
+
+            <div
+              class="propagation-box propagation-parent"
+              data-js="parent-box"
+            >
+              Parent
+
+              <button
+                type="button"
+                class="propagation-child-btn"
+                data-js="child-btn"
+              >
+                Child Button
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- browser rendering pipeline section -->
+      <section class="rendering-pipeline-section">
+        <div class="section-header">
+          <h2 class="section-header-title">Browser Rendering Pipeline</h2>
+          <p class="section-header-description">
+            How browser converts HTML and CSS into a Render Tree.
+          </p>
+        </div>
+
+        <div class="rendering-pipeline">
+          <div class="pipeline-group">
+            <div class="pipeline-card">HTML</div>
+            <div class="pipeline-arrow">↓</div>
+            <div class="pipeline-card">Parsing</div>
+            <div class="pipeline-arrow">↓</div>
+            <div class="pipeline-card">Tokenization</div>
+            <div class="pipeline-arrow">↓</div>
+            <div class="pipeline-card">DOM Tree</div>
+          </div>
+
+          <div class="pipeline-group">
+            <div class="pipeline-card">CSS</div>
+            <div class="pipeline-arrow">↓</div>
+            <div class="pipeline-card">CSSOM Tree</div>
+          </div>
+
+          <div class="pipeline-group">
+            <div class="pipeline-card pipeline-card-final">
+              DOM Tree + CSSOM Tree
+            </div>
+            <div class="pipeline-arrow">↓</div>
+            <div class="pipeline-card pipeline-card-final">Render Tree</div>
+          </div>
+        </div>
+      </section>
+    </main>
 
     <script src="./js/script.js"></script>
-</body>
+  </body>
 </html>
