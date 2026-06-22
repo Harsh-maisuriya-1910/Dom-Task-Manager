@@ -130,6 +130,19 @@ function createTaskTitleElement(title, status) {
   return taskTitle;
 }
 
+function renderTaskCards(taskArray = tasks) {
+    const oldTaskCards = taskList.querySelectorAll(".task-card");
+
+    oldTaskCards.forEach((oldCard) => {
+      oldCard.remove();
+    })
+
+    taskArray.forEach((task) => {
+      const taskCard = createTaskCard(task);
+      taskList.append(taskCard);
+    })
+}
+
 /* add task section */
 
 function handleTaskFormSubmit(event) {
@@ -311,6 +324,32 @@ function editTask(taskId, taskCard) {
   editInput.addEventListener("blur", saveEditedTask);
 }
 
+/* task counter section */
+
+function updateTaskCounter() {
+  const pendingTask = tasks.filter((task) => task.status === "pending");
+  const completedTask = tasks.filter((task) => task.status === "completed");
+
+  pendingCount.textContent = pendingTask.length;
+  completedCount.textContent = completedTask.length;
+}
+
+/* task search section */
+
+function handleTaskSearch() {
+  const searchTaskValue = taskSearchInput.value.trim().toLowerCase();
+
+  console.log(searchTaskValue);
+
+  const searchedTask = tasks.filter((task) => {
+    return task.title.toLowerCase().includes(searchTaskValue)
+  })
+
+  console.log(searchedTask);
+
+
+}
+
 /* main task action handler section */
 
 function handleTaskAction(event) {
@@ -335,21 +374,17 @@ function handleTaskAction(event) {
   }
 }
 
-/* task counter section */
-
-function updateTaskCounter() {
-  const pendingTask = tasks.filter((task) => task.status === "pending");
-  const completedTask = tasks.filter((task) => task.status === "completed");
-
-  pendingCount.textContent = pendingTask.length;
-  completedCount.textContent = completedTask.length;
-}
-
 /* event listeners section */
 
 taskForm.addEventListener("submit", handleTaskFormSubmit);
 taskList.addEventListener("click", handleTaskAction);
 
+taskSearchInput.addEventListener("input", handleTaskSearch);
+
 /* intial call updateCounter */
 
 updateTaskCounter();
+
+
+
+
