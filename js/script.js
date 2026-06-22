@@ -2,18 +2,12 @@
 
 const taskForm = document.querySelector("[data-js='task-form']");
 const taskTitleInput = document.querySelector("[data-js='task-title-input']");
-const taskCategorySelect = document.querySelector(
-  "[data-js='task-category-select']",
-);
+const taskCategorySelect = document.querySelector("[data-js='task-category-select']");
 
 const taskList = document.querySelector("[data-js='task-list']");
-const emptyTaskMessage = document.querySelector(
-  "[data-js='empty-task-message']",
-);
+const emptyTaskMessage = document.querySelector("[data-js='empty-task-message']");
 const taskSearchInput = document.querySelector("[data-js='task-search-input']");
-const taskFilterSelect = document.querySelector(
-  "[data-js='task-filter-select']",
-);
+const taskFilterSelect = document.querySelector("[data-js='task-filter-select']");
 
 const pendingCount = document.querySelector("[data-js='pending-count']");
 const completedCount = document.querySelector("[data-js='completed-count']");
@@ -21,12 +15,8 @@ const completedCount = document.querySelector("[data-js='completed-count']");
 const clearAllBtn = document.querySelector("[data-js='clear-all-btn']");
 const themeToggleBtn = document.querySelector("[data-js='theme-toggle-btn']");
 
-const attributeDemoInput = document.querySelector(
-  "[data-js='attribute-demo-input']",
-);
-const checkAttributeBtn = document.querySelector(
-  "[data-js='check-attribute-btn']",
-);
+const attributeDemoInput = document.querySelector("[data-js='attribute-demo-input']");
+const checkAttributeBtn = document.querySelector("[data-js='check-attribute-btn']");
 
 const grandparentBox = document.querySelector("[data-js='grandparent-box']");
 const parentBox = document.querySelector("[data-js='parent-box']");
@@ -171,6 +161,7 @@ function handleTaskFormSubmit(event) {
   taskList.append(taskCard);
 
   toggleEmptyTaskMessage();
+  updateTaskCounter();
 
   taskForm.reset();
 
@@ -331,10 +322,12 @@ function handleTaskAction(event) {
 
   if (action === "delete") {
     deleteTask(taskId, taskCard);
+    updateTaskCounter();
   }
 
   if (action === "complete") {
     toggleCompleteTask(taskId, taskCard);
+    updateTaskCounter();
   }
 
   if (action === "edit") {
@@ -342,7 +335,21 @@ function handleTaskAction(event) {
   }
 }
 
+/* task counter section */
+
+function updateTaskCounter() {
+  const pendingTask = tasks.filter((task) => task.status === "pending");
+  const completedTask = tasks.filter((task) => task.status === "completed");
+
+  pendingCount.textContent = pendingTask.length;
+  completedCount.textContent = completedTask.length;
+}
+
 /* event listeners section */
 
 taskForm.addEventListener("submit", handleTaskFormSubmit);
 taskList.addEventListener("click", handleTaskAction);
+
+/* intial call updateCounter */
+
+updateTaskCounter();
