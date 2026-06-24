@@ -56,6 +56,11 @@ function createTaskCard(task) {
   taskTitle.classList.add("task-card-title");
   taskTitle.textContent = task.title;
 
+  if (task.status === "completed") {
+    article.classList.add("task-card-completed");
+    taskTitle.style.textDecoration = "line-through";
+  }
+
   const taskCategory = document.createElement("p");
   taskCategory.classList.add("task-card-category");
   taskCategory.textContent = `Category: ${task.category}`;
@@ -131,16 +136,16 @@ function createTaskTitleElement(title, status) {
 }
 
 function renderTaskCards(taskArray = tasks) {
-    const oldTaskCards = taskList.querySelectorAll(".task-card");
+  const oldTaskCards = taskList.querySelectorAll(".task-card");
 
-    oldTaskCards.forEach((oldCard) => {
-      oldCard.remove();
-    })
+  oldTaskCards.forEach((oldCard) => oldCard.remove())
 
-    taskArray.forEach((task) => {
-      const taskCard = createTaskCard(task);
-      taskList.append(taskCard);
-    })
+  taskArray.forEach((task) => {
+    const taskCard = createTaskCard(task);
+    taskList.append(taskCard);
+  })
+
+  emptyTaskMessage.style.display = taskArray.length === 0 ? "block" : "none";
 }
 
 /* add task section */
@@ -170,11 +175,7 @@ function handleTaskFormSubmit(event) {
 
   tasks.push(taskObject);
 
-  const taskCard = createTaskCard(taskObject);
-  taskList.append(taskCard);
-
-  toggleEmptyTaskMessage();
-  updateTaskCounter();
+  renderCurrentTaskView();
 
   taskForm.reset();
 
@@ -204,19 +205,17 @@ function getTaskActionContext(event) {
 
 /* delete task section */
 
-function deleteTask(taskId, taskCard) {
+function deleteTask(taskId) {
   tasks = tasks.filter((task) => task.id !== taskId);
 
-  taskCard.remove();
-
-  toggleEmptyTaskMessage();
+  renderCurrentTaskView();
 
   console.log("Task deleted:", taskId);
 }
 
 /* complete and pending toggle section */
 
-function toggleCompleteTask(taskId, taskCard) {
+function toggleCompleteTask(taskId) {
   const currentTask = findTaskById(taskId);
 
   if (!currentTask) {
@@ -224,28 +223,9 @@ function toggleCompleteTask(taskId, taskCard) {
     return;
   }
 
-  const statusBadge = taskCard.querySelector(".task-card-status-badge");
-  const taskTitle = taskCard.querySelector(".task-card-title");
+  currentTask.status = currentTask.status === "pending" ? "completed" : "pending";
 
-  if (!statusBadge || !taskTitle) return;
-
-  if (currentTask.status === "pending") {
-    currentTask.status = "completed";
-
-    taskCard.dataset.status = "completed";
-    taskCard.classList.add("task-card-completed");
-
-    statusBadge.textContent = "completed";
-    taskTitle.style.textDecoration = "line-through";
-  } else {
-    currentTask.status = "pending";
-
-    taskCard.dataset.status = "pending";
-    taskCard.classList.remove("task-card-completed");
-
-    statusBadge.textContent = "pending";
-    taskTitle.style.textDecoration = "none";
-  }
+  renderCurrentTaskView();
 
   console.log("Task status changed:", {
     id: currentTask.id,
@@ -302,12 +282,7 @@ function editTask(taskId, taskCard) {
 
     currentTask.title = updatedTitle;
 
-    const newTaskTitle = createTaskTitleElement(
-      currentTask.title,
-      currentTask.status,
-    );
-
-    editInput.replaceWith(newTaskTitle);
+    renderCurrentTaskView();
 
     console.log("Task title updated:", {
       id: currentTask.id,
@@ -335,19 +310,23 @@ function updateTaskCounter() {
 }
 
 /* task search section */
-
-function handleTaskSearch() {
+function getSearchedTasks() {
   const searchTaskValue = taskSearchInput.value.trim().toLowerCase();
 
-  console.log(searchTaskValue);
+  return tasks.filter((task) => {
+    return task.title.toLowerCase().includes(searchTaskValue);
+  });
+}
 
-  const searchedTask = tasks.filter((task) => {
-    return task.title.toLowerCase().includes(searchTaskValue)
-  })
+function renderCurrentTaskView() {
+  const searchedTasks = getSearchedTasks();
 
-  console.log(searchedTask);
+  renderTaskCards(searchedTasks);
+  updateTaskCounter();
+}
 
-
+function handleTaskSearch() {
+  renderCurrentTaskView();
 }
 
 /* main task action handler section */
@@ -360,13 +339,11 @@ function handleTaskAction(event) {
   const { action, taskId, taskCard } = taskContext;
 
   if (action === "delete") {
-    deleteTask(taskId, taskCard);
-    updateTaskCounter();
+    deleteTask(taskId);
   }
 
   if (action === "complete") {
-    toggleCompleteTask(taskId, taskCard);
-    updateTaskCounter();
+    toggleCompleteTask(taskId);
   }
 
   if (action === "edit") {
@@ -378,12 +355,12 @@ function handleTaskAction(event) {
 
 taskForm.addEventListener("submit", handleTaskFormSubmit);
 taskList.addEventListener("click", handleTaskAction);
-
 taskSearchInput.addEventListener("input", handleTaskSearch);
 
-/* intial call updateCounter */
+/* initial render */
 
-updateTaskCounter();
+renderCurrentTaskView();
+
 
 
 
