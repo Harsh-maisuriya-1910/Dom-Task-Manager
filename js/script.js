@@ -348,6 +348,24 @@ function handleTaskFilter() {
   renderCurrentTaskView();
 }
 
+/* clear all tasks section */
+
+function handleClearAllTasks() {
+  if (tasks.length === 0) {
+    console.log("Task is empty");
+    return;
+  }
+
+  tasks = [];
+
+  taskSearchInput.value = "";
+  taskFilterSelect.value = "all";
+
+  renderCurrentTaskView();
+
+  console.log("All tasks cleared");
+}
+
 /* main task action handler section */
 
 function handleTaskAction(event) {
@@ -376,6 +394,7 @@ taskForm.addEventListener("submit", handleTaskFormSubmit);
 taskList.addEventListener("click", handleTaskAction);
 taskSearchInput.addEventListener("input", handleTaskSearch);
 taskFilterSelect.addEventListener("change", handleTaskFilter);
+clearAllBtn.addEventListener("click", handleClearAllTasks);
 
 /* initial render */
 
