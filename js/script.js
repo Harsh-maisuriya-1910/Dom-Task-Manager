@@ -1,3 +1,7 @@
+/* module import section */
+
+import { renderingPipelineData } from "./data/rendering-pipeline.data.js";
+
 /* common elements section */
 
 const taskForm = document.querySelector("[data-js='task-form']");
@@ -21,6 +25,8 @@ const checkAttributeBtn = document.querySelector("[data-js='check-attribute-btn'
 const grandparentBox = document.querySelector("[data-js='grandparent-box']");
 const parentBox = document.querySelector("[data-js='parent-box']");
 const childBtn = document.querySelector("[data-js='child-btn']");
+
+const renderingPipeline = document.querySelector("[data-js='rendering-pipeline']");
 
 /* task data section */
 
@@ -505,6 +511,77 @@ function handleTaskAction(event) {
   }
 }
 
+/* browser rendering pipeline section */
+
+function createPipelineCard(step) {
+  const pipelineCard = document.createElement("div");
+  pipelineCard.classList.add("pipeline-card");
+
+  if (step.type === "final") {
+    pipelineCard.classList.add("pipeline-card-final");
+  }
+
+  const stepLabel = document.createElement("span");
+  stepLabel.classList.add("pipeline-card-label");
+  stepLabel.textContent = step.label;
+
+  const stepName = document.createElement("strong");
+  stepName.textContent = step.name;
+
+  const stepDescription = document.createElement("p");
+  stepDescription.textContent = step.description;
+
+  pipelineCard.append(stepLabel, stepName, stepDescription);
+
+  return pipelineCard;
+}
+
+function createPipelineArrow() {
+  const pipelineArrow = document.createElement("div");
+  pipelineArrow.classList.add("pipeline-arrow");
+  pipelineArrow.textContent = "↓";
+
+  return pipelineArrow;
+}
+
+function createPipelineGroup(group) {
+  const pipelineGroup = document.createElement("div");
+  pipelineGroup.classList.add("pipeline-group");
+
+  const groupTitle = document.createElement("h3");
+  groupTitle.classList.add("pipeline-group-title");
+  groupTitle.textContent = group.title;
+
+  pipelineGroup.append(groupTitle);
+
+  group.steps.forEach((step, index) => {
+    const pipelineCard = createPipelineCard(step);
+    pipelineGroup.append(pipelineCard);
+
+    const isLastStep = index === group.steps.length - 1;
+
+    if (!isLastStep) {
+      const pipelineArrow = createPipelineArrow();
+      pipelineGroup.append(pipelineArrow);
+    }
+  });
+
+  return pipelineGroup;
+}
+
+function renderRenderingPipeline() {
+  renderingPipeline.innerHTML = "";
+
+  const pipelineFragment = document.createDocumentFragment();
+
+  renderingPipelineData.forEach((group) => {
+    const pipelineGroup = createPipelineGroup(group);
+    pipelineFragment.append(pipelineGroup);
+  });
+
+  renderingPipeline.append(pipelineFragment);
+}
+
 /* event listeners section */
 
 taskForm.addEventListener("submit", handleTaskFormSubmit);
@@ -536,7 +613,7 @@ taskSearchInput.value = "";
 taskFilterSelect.value = "all";
 
 renderCurrentTaskView();
-
+renderRenderingPipeline();
 
 
 

@@ -16,7 +16,6 @@
       <div class="app-header-brand">
         <div>
           <h1 class="app-header-title">DOM Task Manager</h1>
-          <p class="app-header-subtitle">Vanilla JavaScript DOM Project</p>
         </div>
       </div>
 
@@ -191,35 +190,11 @@
         </p>
       </div>
 
-      <div class="rendering-pipeline">
-        <div class="pipeline-group">
-          <div class="pipeline-card">HTML</div>
-          <div class="pipeline-arrow">↓</div>
-          <div class="pipeline-card">Parsing</div>
-          <div class="pipeline-arrow">↓</div>
-          <div class="pipeline-card">Tokenization</div>
-          <div class="pipeline-arrow">↓</div>
-          <div class="pipeline-card">DOM Tree</div>
-        </div>
-
-        <div class="pipeline-group">
-          <div class="pipeline-card">CSS</div>
-          <div class="pipeline-arrow">↓</div>
-          <div class="pipeline-card">CSSOM Tree</div>
-        </div>
-
-        <div class="pipeline-group">
-          <div class="pipeline-card pipeline-card-final">
-            DOM Tree + CSSOM Tree
-          </div>
-          <div class="pipeline-arrow">↓</div>
-          <div class="pipeline-card pipeline-card-final">Render Tree</div>
-        </div>
-      </div>
+      <div class="rendering-pipeline" data-js="rendering-pipeline"></div>
     </section>
   </main>
 
-  <script src="./js/script.js"></script>
+  <script type="module" src="./js/script.js"></script>
 </body>
 
 </html>
