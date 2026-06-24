@@ -25,6 +25,7 @@ const childBtn = document.querySelector("[data-js='child-btn']");
 /* task data section */
 
 let tasks = [];
+const TASK_LOCAL_STORAGE_KEY = "task-manager";
 
 /* task object create section */
 
@@ -58,7 +59,7 @@ function createTaskCard(task) {
 
   if (task.status === "completed") {
     article.classList.add("task-card-completed");
-    taskTitle.style.textDecoration = "line-through";
+    statusBadge.classList.add("completed");
   }
 
   const taskCategory = document.createElement("p");
@@ -105,10 +106,6 @@ function createTaskCard(task) {
 
 /* helper functions section */
 
-function toggleEmptyTaskMessage() {
-  emptyTaskMessage.style.display = tasks.length === 0 ? "block" : "none";
-}
-
 function findTaskById(taskId) {
   return tasks.find((task) => task.id === taskId);
 }
@@ -118,21 +115,9 @@ function isDuplicateTask(title, category, currentTaskId = null) {
     return (
       task.id !== currentTaskId &&
       task.title.toLowerCase() === title.toLowerCase() &&
-      task.category === category
+      task.category.toLowerCase() === category.toLowerCase()
     );
   });
-}
-
-function createTaskTitleElement(title, status) {
-  const taskTitle = document.createElement("h3");
-  taskTitle.classList.add("task-card-title");
-  taskTitle.textContent = title;
-
-  if (status === "completed") {
-    taskTitle.style.textDecoration = "line-through";
-  }
-
-  return taskTitle;
 }
 
 function renderTaskCards(taskArray = tasks) {
@@ -175,6 +160,8 @@ function handleTaskFormSubmit(event) {
 
   tasks.push(taskObject);
 
+  saveTasksToLocalStorage();
+
   renderCurrentTaskView();
 
   taskForm.reset();
@@ -208,6 +195,8 @@ function getTaskActionContext(event) {
 function deleteTask(taskId) {
   tasks = tasks.filter((task) => task.id !== taskId);
 
+  saveTasksToLocalStorage();
+
   renderCurrentTaskView();
 
   console.log("Task deleted:", taskId);
@@ -224,6 +213,8 @@ function toggleCompleteTask(taskId) {
   }
 
   currentTask.status = currentTask.status === "pending" ? "completed" : "pending";
+
+  saveTasksToLocalStorage();
 
   renderCurrentTaskView();
 
@@ -281,6 +272,8 @@ function editTask(taskId, taskCard) {
     isSaved = true;
 
     currentTask.title = updatedTitle;
+
+    saveTasksToLocalStorage();
 
     renderCurrentTaskView();
 
@@ -340,7 +333,7 @@ function getFilteredTasks(taskArray) {
     }
 
     return taskArray.filter((task) => {
-      return task.category === selectedCategory;
+      return task.category.toLowerCase() === selectedCategory.toLowerCase();
     })
 }
 
@@ -361,9 +354,36 @@ function handleClearAllTasks() {
   taskSearchInput.value = "";
   taskFilterSelect.value = "all";
 
+  saveTasksToLocalStorage();
+
   renderCurrentTaskView();
 
   console.log("All tasks cleared");
+}
+
+/* local storage section */
+
+function saveTasksToLocalStorage() {
+  localStorage.setItem(TASK_LOCAL_STORAGE_KEY, JSON.stringify(tasks));
+}
+
+function loadTasksFromLocalStorage() {
+  const savedTasks = localStorage.getItem(TASK_LOCAL_STORAGE_KEY);
+
+  if (!savedTasks) {
+    tasks = [];
+    return;
+  }
+
+  try {
+    const parsedTasks = JSON.parse(savedTasks);
+    tasks = Array.isArray(parsedTasks) ? parsedTasks : [];
+  } catch (error) {
+    tasks = [];
+    localStorage.removeItem(TASK_LOCAL_STORAGE_KEY);
+    console.log("Invalid localStorage data removed");
+  }
+
 }
 
 /* main task action handler section */
@@ -388,6 +408,7 @@ function handleTaskAction(event) {
   }
 }
 
+
 /* event listeners section */
 
 taskForm.addEventListener("submit", handleTaskFormSubmit);
@@ -397,6 +418,11 @@ taskFilterSelect.addEventListener("change", handleTaskFilter);
 clearAllBtn.addEventListener("click", handleClearAllTasks);
 
 /* initial render */
+
+loadTasksFromLocalStorage();
+
+taskSearchInput.value = "";
+taskFilterSelect.value = "all";
 
 renderCurrentTaskView();
 
