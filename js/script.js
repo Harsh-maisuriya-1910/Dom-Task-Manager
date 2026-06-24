@@ -453,6 +453,36 @@ function handleAttributePropertyDemo() {
   console.groupEnd();
 }
 
+/* event propagation demo section */
+
+function logPropagation(message) {
+  console.log(message);
+}
+
+function handleGrandparentCapture() {
+  logPropagation("Capturing Phase: Grandparent");
+}
+
+function handleParentCapture() {
+  logPropagation("Capturing Phase: Parent");
+}
+
+function handleChildCapture() {
+  logPropagation("Capturing Phase: Child");
+}
+
+function handleChildBubble() {
+  logPropagation("Bubbling Phase: Child");
+}
+
+function handleParentBubble() {
+  logPropagation("Bubbling Phase: Parent");
+}
+
+function handleGrandparentBubble() {
+  logPropagation("Bubbling Phase: Grandparent");
+}
+
 /* main task action handler section */
 
 function handleTaskAction(event) {
@@ -484,6 +514,18 @@ taskFilterSelect.addEventListener("change", handleTaskFilter);
 clearAllBtn.addEventListener("click", handleClearAllTasks);
 themeToggleBtn.addEventListener("click", handleThemeToggle);
 checkAttributeBtn.addEventListener("click", handleAttributePropertyDemo);
+
+/* event propagation listeners */
+
+// Capturing phase
+grandparentBox.addEventListener("click", handleGrandparentCapture, true);
+parentBox.addEventListener("click", handleParentCapture, true);
+childBtn.addEventListener("click", handleChildCapture, true);
+
+// Bubbling phase
+childBtn.addEventListener("click", handleChildBubble);
+parentBox.addEventListener("click", handleParentBubble);
+grandparentBox.addEventListener("click", handleGrandparentBubble);
 
 /* initial render */
 
