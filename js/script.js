@@ -423,6 +423,36 @@ function handleThemeToggle() {
   console.log("Theme changed:", nextTheme);
 }
 
+/* attributes vs properties demo section */
+
+function handleAttributePropertyDemo() {
+  console.clear();
+
+  console.group("Attributes vs Properties Demo");
+
+  console.log("1. input.value");
+  console.log("Current live value:", attributeDemoInput.value);
+
+  console.log("2. getAttribute('value')");
+  console.log("HTML attribute value:", attributeDemoInput.getAttribute("value"));
+
+  console.log("3. hasAttribute('value')");
+  console.log("Does input have value attribute?", attributeDemoInput.hasAttribute("value"));
+
+  console.log("4. dataset");
+  console.log("data-js value:", attributeDemoInput.dataset.js);
+
+  console.log("5. setAttribute()");
+  attributeDemoInput.setAttribute("data-demo", "attribute-created-by-js");
+  console.log("New data-demo attribute:", attributeDemoInput.getAttribute("data-demo") );
+
+  console.log("6. removeAttribute()");
+  attributeDemoInput.removeAttribute("data-demo");
+  console.log("After remove data-demo:",attributeDemoInput.getAttribute("data-demo"));
+
+  console.groupEnd();
+}
+
 /* main task action handler section */
 
 function handleTaskAction(event) {
@@ -453,6 +483,7 @@ taskSearchInput.addEventListener("input", handleTaskSearch);
 taskFilterSelect.addEventListener("change", handleTaskFilter);
 clearAllBtn.addEventListener("click", handleClearAllTasks);
 themeToggleBtn.addEventListener("click", handleThemeToggle);
+checkAttributeBtn.addEventListener("click", handleAttributePropertyDemo);
 
 /* initial render */
 
