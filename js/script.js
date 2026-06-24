@@ -301,9 +301,9 @@ function editTask(taskId, taskCard) {
 
 /* task counter section */
 
-function updateTaskCounter() {
-  const pendingTask = tasks.filter((task) => task.status === "pending");
-  const completedTask = tasks.filter((task) => task.status === "completed");
+function updateTaskCounter(taskArray = tasks) {
+  const pendingTask = taskArray.filter((task) => task.status === "pending");
+  const completedTask = taskArray.filter((task) => task.status === "completed");
 
   pendingCount.textContent = pendingTask.length;
   completedCount.textContent = completedTask.length;
@@ -320,12 +320,31 @@ function getSearchedTasks() {
 
 function renderCurrentTaskView() {
   const searchedTasks = getSearchedTasks();
+  const filteredTasks = getFilteredTasks(searchedTasks);
 
-  renderTaskCards(searchedTasks);
-  updateTaskCounter();
+  renderTaskCards(filteredTasks);
+  updateTaskCounter(filteredTasks);
 }
 
 function handleTaskSearch() {
+  renderCurrentTaskView();
+}
+
+/* task filter section */
+
+function getFilteredTasks(taskArray) {
+    const selectedCategory = taskFilterSelect.value;
+
+    if(selectedCategory === "all"){
+      return taskArray;
+    }
+
+    return taskArray.filter((task) => {
+      return task.category === selectedCategory;
+    })
+}
+
+function handleTaskFilter() {
   renderCurrentTaskView();
 }
 
@@ -356,6 +375,7 @@ function handleTaskAction(event) {
 taskForm.addEventListener("submit", handleTaskFormSubmit);
 taskList.addEventListener("click", handleTaskAction);
 taskSearchInput.addEventListener("input", handleTaskSearch);
+taskFilterSelect.addEventListener("change", handleTaskFilter);
 
 /* initial render */
 
