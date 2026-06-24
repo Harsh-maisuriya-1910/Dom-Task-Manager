@@ -58,6 +58,10 @@ button {
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.25s ease;
+  -webkit-transition: all 0.25s ease;
+  -moz-transition: all 0.25s ease;
+  -ms-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
 }
 
 input,
@@ -150,6 +154,12 @@ input::placeholder {
   color: var(--text-color);
   font-weight: 500;
   font-size: 0.875rem;
+}
+
+.app-header-theme-btn.is-dark-theme {
+  background-color: var(--primary-color);
+  color: #ffffff;
+  border-color: var(--primary-color);
 }
 
 .app-header-theme-btn:hover {

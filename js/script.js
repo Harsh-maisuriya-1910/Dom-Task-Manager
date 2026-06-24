@@ -26,6 +26,7 @@ const childBtn = document.querySelector("[data-js='child-btn']");
 
 let tasks = [];
 const TASK_LOCAL_STORAGE_KEY = "task-manager";
+const THEME_LOCAL_STORAGE_KEY = "light";
 
 /* task object create section */
 
@@ -386,6 +387,42 @@ function loadTasksFromLocalStorage() {
 
 }
 
+/* theme toggle section */
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+
+  themeToggleBtn.textContent = theme === "dark" ? "Light Mode" : "Dark Mode";
+
+  themeToggleBtn.classList.toggle("is-dark-theme", theme === "dark");
+}
+
+function saveThemeToLocalStorage(theme) {
+  localStorage.setItem(THEME_LOCAL_STORAGE_KEY, theme);
+}
+
+function loadThemeFromLocalStorage() {
+  const savedTheme = localStorage.getItem(THEME_LOCAL_STORAGE_KEY);
+
+  if (!savedTheme) {
+    applyTheme("light");
+    return;
+  }
+
+  applyTheme(savedTheme);
+}
+
+function handleThemeToggle() {
+  const currentTheme = document.documentElement.getAttribute("data-theme");
+
+  const nextTheme = currentTheme === "dark" ? "light" : "dark";
+
+  applyTheme(nextTheme);
+  saveThemeToLocalStorage(nextTheme);
+
+  console.log("Theme changed:", nextTheme);
+}
+
 /* main task action handler section */
 
 function handleTaskAction(event) {
@@ -408,7 +445,6 @@ function handleTaskAction(event) {
   }
 }
 
-
 /* event listeners section */
 
 taskForm.addEventListener("submit", handleTaskFormSubmit);
@@ -416,9 +452,11 @@ taskList.addEventListener("click", handleTaskAction);
 taskSearchInput.addEventListener("input", handleTaskSearch);
 taskFilterSelect.addEventListener("change", handleTaskFilter);
 clearAllBtn.addEventListener("click", handleClearAllTasks);
+themeToggleBtn.addEventListener("click", handleThemeToggle);
 
 /* initial render */
 
+loadThemeFromLocalStorage();
 loadTasksFromLocalStorage();
 
 taskSearchInput.value = "";
