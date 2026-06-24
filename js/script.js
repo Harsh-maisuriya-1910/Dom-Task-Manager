@@ -130,12 +130,16 @@ function isDuplicateTask(title, category, currentTaskId = null) {
 function renderTaskCards(taskArray = tasks) {
   const oldTaskCards = taskList.querySelectorAll(".task-card");
 
-  oldTaskCards.forEach((oldCard) => oldCard.remove())
+  oldTaskCards.forEach((oldCard) => oldCard.remove());
+
+  const taskFragment = document.createDocumentFragment();
 
   taskArray.forEach((task) => {
     const taskCard = createTaskCard(task);
-    taskList.append(taskCard);
-  })
+    taskFragment.append(taskCard);
+  });
+
+  taskList.append(taskFragment);
 
   emptyTaskMessage.style.display = taskArray.length === 0 ? "block" : "none";
 }
