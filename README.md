@@ -265,25 +265,25 @@ This helps students understand how the browser converts HTML and CSS into pixels
 
 Use this checklist before final deployment:
 
-* [ ] Add task works correctly
-* [ ] Empty task validation works
-* [ ] Category validation works
-* [ ] Duplicate task prevention works
-* [ ] Edit task works
-* [ ] Delete task works
-* [ ] Complete/Pending toggle works
-* [ ] Search works
-* [ ] Category filter works
-* [ ] Counters update correctly
-* [ ] Clear All works
-* [ ] Tasks persist after refresh
-* [ ] Dark/Light theme works
-* [ ] Theme persists after refresh
-* [ ] Attribute vs Property demo logs correct output
-* [ ] Event propagation demo logs capturing and bubbling order
-* [ ] Browser Rendering Pipeline renders correctly
-* [ ] No console errors
-* [ ] Responsive design works on mobile and desktop
+* [x] Add task works correctly
+* [x] Empty task validation works
+* [x] Category validation works
+* [x] Duplicate task prevention works
+* [x] Edit task works
+* [x] Delete task works
+* [x] Complete/Pending toggle works
+* [x] Search works
+* [x] Category filter works
+* [x] Counters update correctly
+* [x] Clear All works
+* [x] Tasks persist after refresh
+* [x] Dark/Light theme works
+* [x] Theme persists after refresh
+* [x] Attribute vs Property demo logs correct output
+* [x] Event propagation demo logs capturing and bubbling order
+* [x] Browser Rendering Pipeline renders correctly
+* [x] No console errors
+* [x] Responsive design works on mobile and desktop
 
 ---
 
@@ -330,8 +330,6 @@ feature/document-fragment-optimization
 ## Author
 
 **Harsh Maisuriya**
-
-Full Stack Developer | JavaScript & MERN Stack Instructor
 
 GitHub: https://github.com/Harsh-maisuriya-1910
 LinkedIn: https://www.linkedin.com/in/harsh-maisuriya-b02783276/
