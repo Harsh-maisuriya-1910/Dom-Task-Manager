@@ -19,7 +19,7 @@ GitHub Repository: [DOM Task Manager](https://github.com/Harsh-maisuriya-1910/Do
 Add your project screenshot here:
 
 ```md
-(./assets/project-preview.png)
+./assest/images/project-preview.JPG
 ```
 
 ---
