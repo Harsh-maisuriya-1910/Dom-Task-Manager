@@ -8,7 +8,7 @@ This project is designed as a beginner-to-intermediate JavaScript project where 
 
 ## Live Demo
 
-Live Project: `Add your Vercel deployment link here`
+Live Project: [`Add your Vercel deployment link here`](https://dom-task-manager-black.vercel.app/)
 
 GitHub Repository: [DOM Task Manager](https://github.com/Harsh-maisuriya-1910/Dom-Task-Manager)
 
@@ -19,7 +19,7 @@ GitHub Repository: [DOM Task Manager](https://github.com/Harsh-maisuriya-1910/Do
 Add your project screenshot here:
 
 ```md
-![DOM Task Manager Preview](./assets/project-preview.png)
+(./assets/project-preview.png)
 ```
 
 ---
