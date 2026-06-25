@@ -1,16 +1,16 @@
 # DOM Task Manager
 
-A professional Vanilla JavaScript DOM project built to understand real-world DOM manipulation, event handling, event delegation, localStorage, theme switching, and browser rendering concepts.
+A professional Vanilla JavaScript DOM Task Manager project built to practice real-world DOM manipulation, event handling, event delegation, localStorage persistence, theme switching, modular JavaScript, and browser rendering concepts.
 
-This project is designed as a beginner-to-intermediate level JavaScript project where every feature is created using pure HTML, CSS, and JavaScript without any external framework.
+This project is designed as a beginner-to-intermediate JavaScript project where every feature is built using pure HTML, CSS, and Vanilla JavaScript without any external JavaScript framework.
 
 ---
 
 ## Live Demo
 
-Live Project: `Add your deployed project link here`
+Live Project: `Add your Vercel deployment link here`
 
-GitHub Repository: https://github.com/Harsh-maisuriya-1910/Dom-Task-Manager
+GitHub Repository: [DOM Task Manager](https://github.com/Harsh-maisuriya-1910/Dom-Task-Manager)
 
 ---
 
@@ -41,7 +41,7 @@ Add your project screenshot here:
 
 ### Advanced JavaScript Features
 
-* localStorage integration for persistent tasks
+* localStorage integration for persistent task data
 * Dark and light theme toggle
 * Theme persistence using localStorage
 * Event delegation using `data-action`
@@ -50,6 +50,7 @@ Add your project screenshot here:
 * Event propagation demo with capturing and bubbling
 * Browser rendering pipeline section generated dynamically
 * DocumentFragment optimization for better DOM rendering performance
+* Modular JavaScript using `import` and `export`
 
 ---
 
@@ -60,7 +61,9 @@ Add your project screenshot here:
 * Vanilla JavaScript
 * LocalStorage API
 * DOM API
+* ES Modules
 * Git and GitHub
+* Vercel for deployment
 
 ---
 
@@ -94,6 +97,7 @@ This project covers important JavaScript and browser concepts:
 dom-task-manager/
 ├── index.html
 ├── README.md
+├── CODE_MISTAKES_AND_LEARNINGS.md
 ├── css/
 │   └── style.css
 ├── js/
@@ -106,25 +110,25 @@ dom-task-manager/
 
 ---
 
-## How to Run This Project
+## How to Run This Project Locally
 
 ### 1. Clone the repository
 
 ```bash
-git clone your-repository-url
+git clone https://github.com/Harsh-maisuriya-1910/Dom-Task-Manager.git
 ```
 
 ### 2. Open the project folder
 
 ```bash
-cd dom-task-manager
+cd Dom-Task-Manager
 ```
 
 ### 3. Run the project
 
 Open `index.html` directly in the browser.
 
-Recommended: use VS Code Live Server extension.
+Recommended: use the VS Code Live Server extension for a better development experience.
 
 ---
 
@@ -149,9 +153,11 @@ UI is re-rendered dynamically
 ```txt
 Page loads
 ↓
+Theme is loaded from localStorage
+↓
 Tasks are loaded from localStorage
 ↓
-Theme is loaded from localStorage
+Search and filter values are reset
 ↓
 Task list is rendered again
 ```
@@ -161,9 +167,9 @@ Task list is rendered again
 ```txt
 All tasks
 ↓
-Search by title
+Search by task title
 ↓
-Filter by category
+Filter by task category
 ↓
 Render visible tasks
 ↓
@@ -192,11 +198,13 @@ The project uses the `data-theme` attribute on the `html` element.
 <html data-theme="light">
 ```
 
-JavaScript updates this value dynamically:
+JavaScript updates the theme dynamically:
 
 ```js
 document.documentElement.setAttribute("data-theme", "dark");
 ```
+
+The selected theme is also saved in localStorage so the user’s theme preference remains after refresh.
 
 ---
 
@@ -213,6 +221,8 @@ Button actions are identified using `data-action`.
 ```html
 <button data-action="delete">Delete</button>
 ```
+
+This makes the task actions work even for dynamically created task cards.
 
 ---
 
@@ -231,7 +241,7 @@ This reduces repeated DOM updates and improves rendering performance.
 
 ## Browser Rendering Pipeline
 
-The project also includes a visual browser rendering pipeline:
+The project includes a dynamically generated visual browser rendering pipeline:
 
 ```txt
 HTML Document
@@ -263,7 +273,7 @@ This helps students understand how the browser converts HTML and CSS into pixels
 
 ## Testing Checklist
 
-Use this checklist before final deployment:
+All major features have been tested successfully.
 
 * [x] Add task works correctly
 * [x] Empty task validation works
@@ -282,6 +292,7 @@ Use this checklist before final deployment:
 * [x] Attribute vs Property demo logs correct output
 * [x] Event propagation demo logs capturing and bubbling order
 * [x] Browser Rendering Pipeline renders correctly
+* [x] DocumentFragment rendering works correctly
 * [x] No console errors
 * [x] Responsive design works on mobile and desktop
 
@@ -299,7 +310,7 @@ dev
 feature branches
 ```
 
-Example branches:
+Example branches used in this project:
 
 ```txt
 feature/add-task
@@ -311,6 +322,22 @@ feature/attribute-property-demo
 feature/event-propagation-demo
 feature/rendering-pipeline-polish
 feature/document-fragment-optimization
+feature/readme-update
+docs/code-mistakes-learnings
+```
+
+---
+
+## Deployment
+
+This project is prepared for deployment on Vercel.
+
+After deployment, update the live project link in the `Live Demo` section.
+
+Recommended platform:
+
+```txt
+Vercel
 ```
 
 ---
@@ -331,8 +358,10 @@ feature/document-fragment-optimization
 
 **Harsh Maisuriya**
 
-GitHub: https://github.com/Harsh-maisuriya-1910
-LinkedIn: https://www.linkedin.com/in/harsh-maisuriya-b02783276/
+Full Stack Developer | JavaScript & MERN Stack Instructor
+
+GitHub: [Harsh-maisuriya-1910](https://github.com/Harsh-maisuriya-1910)
+LinkedIn: [Harsh Maisuriya](https://www.linkedin.com/in/harsh-maisuriya-b02783276/)
 
 ---
 
@@ -349,4 +378,3 @@ You are free to use this project as a reference for understanding Vanilla JavaSc
 No license has been added to this project.
 
 This project is created for learning and portfolio purposes.
-
