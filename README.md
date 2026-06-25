@@ -10,7 +10,7 @@ This project is designed as a beginner-to-intermediate level JavaScript project 
 
 Live Project: `Add your deployed project link here`
 
-GitHub Repository: `Add your GitHub repository link here`
+GitHub Repository: https://github.com/Harsh-maisuriya-1910/Dom-Task-Manager
 
 ---
 
@@ -333,8 +333,8 @@ feature/document-fragment-optimization
 
 Full Stack Developer | JavaScript & MERN Stack Instructor
 
-GitHub: `Add your GitHub profile link here`
-LinkedIn: `Add your LinkedIn profile link here`
+GitHub: https://github.com/Harsh-maisuriya-1910
+LinkedIn: https://www.linkedin.com/in/harsh-maisuriya-b02783276/
 
 ---
 
