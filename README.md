@@ -16,7 +16,7 @@ GitHub Repository: [DOM Task Manager](https://github.com/Harsh-maisuriya-1910/Do
 
 ## Project Preview
 
-./assest/images/project-preview.JPG
+<img src="./assest/images/project-preview.JPG" />
 
 ---
 
