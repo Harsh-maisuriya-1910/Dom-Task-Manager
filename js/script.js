@@ -33,6 +33,7 @@ const renderingPipeline = document.querySelector("[data-js='rendering-pipeline']
 let tasks = [];
 const TASK_LOCAL_STORAGE_KEY = "task-manager";
 const THEME_LOCAL_STORAGE_KEY = "light";
+const TASK_TITLE_MAX_LENGTH = 80;
 
 /* task object create section */
 
@@ -44,6 +45,15 @@ function createTaskObject(title, category) {
     status: "pending",
     createdAt: new Date().toLocaleString(),
   };
+}
+
+/* create Icon Function */
+
+function createIcon(iconClassName) {
+  const icon = document.createElement("i");
+  icon.className = iconClassName;
+
+  return icon;
 }
 
 /* task card create section */
@@ -84,19 +94,19 @@ function createTaskCard(task) {
   editButton.type = "button";
   editButton.classList.add("task-card-btn", "task-card-edit-btn");
   editButton.dataset.action = "edit";
-  editButton.innerHTML = '<i class="ri-edit-box-line"></i>';
+  editButton.append(createIcon("ri-edit-box-line"));
 
   const completeButton = document.createElement("button");
   completeButton.type = "button";
   completeButton.classList.add("task-card-btn", "task-card-complete-btn");
   completeButton.dataset.action = "complete";
-  completeButton.innerHTML = '<i class="ri-check-line"></i>';
+  completeButton.append(createIcon("ri-check-line"));
 
   const deleteButton = document.createElement("button");
   deleteButton.type = "button";
   deleteButton.classList.add("task-card-btn", "task-card-delete-btn");
   deleteButton.dataset.action = "delete";
-  deleteButton.innerHTML = '<i class="ri-delete-bin-line"></i>';
+  deleteButton.append(createIcon("ri-delete-bin-line"));
 
   taskCardAction.append(editButton, completeButton, deleteButton);
 
@@ -144,6 +154,12 @@ function renderTaskCards(taskArray = tasks) {
   emptyTaskMessage.style.display = taskArray.length === 0 ? "block" : "none";
 }
 
+function isValidTaskTitle(title) {
+  const unsafePattern = /[<>`"'=]/;
+
+  return !unsafePattern.test(title);
+}
+
 /* add task section */
 
 function handleTaskFormSubmit(event) {
@@ -154,6 +170,16 @@ function handleTaskFormSubmit(event) {
 
   if (!currentTaskTitle) {
     console.log("Please enter task title");
+    return;
+  }
+
+  if (currentTaskTitle.length > TASK_TITLE_MAX_LENGTH) {
+    console.log(`Task title cannot be more than ${TASK_TITLE_MAX_LENGTH} characters`);
+    return;
+  }
+
+  if (!isValidTaskTitle(currentTaskTitle)) {
+    console.log("Task title contains unsafe characters");
     return;
   }
 
@@ -257,6 +283,7 @@ function editTask(taskId, taskCard) {
   editInput.type = "text";
   editInput.classList.add("task-card-edit-input");
   editInput.value = currentTask.title;
+  editInput.maxLength = TASK_TITLE_MAX_LENGTH;
 
   taskTitle.replaceWith(editInput);
   editInput.focus();
@@ -270,6 +297,18 @@ function editTask(taskId, taskCard) {
 
     if (!updatedTitle) {
       console.log("Task title cannot be empty");
+      editInput.focus();
+      return;
+    }
+
+    if (updatedTitle.length > TASK_TITLE_MAX_LENGTH) {
+      console.log(`Task title cannot be more than ${TASK_TITLE_MAX_LENGTH} characters`);
+      editInput.focus();
+      return;
+    }
+
+    if (!isValidTaskTitle(updatedTitle)) {
+      console.log("Task title contains unsafe characters");
       editInput.focus();
       return;
     }
@@ -297,6 +336,10 @@ function editTask(taskId, taskCard) {
   editInput.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       saveEditedTask();
+    }
+
+    if (event.key === "Escape") {
+      renderCurrentTaskView();
     }
   });
 
@@ -337,15 +380,15 @@ function handleTaskSearch() {
 /* task filter section */
 
 function getFilteredTasks(taskArray) {
-    const selectedCategory = taskFilterSelect.value;
+  const selectedCategory = taskFilterSelect.value;
 
-    if(selectedCategory === "all"){
-      return taskArray;
-    }
+  if (selectedCategory === "all") {
+    return taskArray;
+  }
 
-    return taskArray.filter((task) => {
-      return task.category.toLowerCase() === selectedCategory.toLowerCase();
-    })
+  return taskArray.filter((task) => {
+    return task.category.toLowerCase() === selectedCategory.toLowerCase();
+  })
 }
 
 function handleTaskFilter() {
@@ -454,11 +497,11 @@ function handleAttributePropertyDemo() {
 
   console.log("5. setAttribute()");
   attributeDemoInput.setAttribute("data-demo", "attribute-created-by-js");
-  console.log("New data-demo attribute:", attributeDemoInput.getAttribute("data-demo") );
+  console.log("New data-demo attribute:", attributeDemoInput.getAttribute("data-demo"));
 
   console.log("6. removeAttribute()");
   attributeDemoInput.removeAttribute("data-demo");
-  console.log("After remove data-demo:",attributeDemoInput.getAttribute("data-demo"));
+  console.log("After remove data-demo:", attributeDemoInput.getAttribute("data-demo"));
 
   console.groupEnd();
 }
